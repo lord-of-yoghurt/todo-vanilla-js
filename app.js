@@ -38,7 +38,6 @@ function addTodo(e) {
   // item goes inside the div
   todoDiv.appendChild(newTodo);
 
-  // ------
   // add the 'complete' button
   const completeButton = document.createElement('button');
   // button will have an icon from font-awesome
@@ -51,4 +50,7 @@ function addTodo(e) {
   deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
   deleteButton.classList.add("complete-btn");
   todoDiv.appendChild(deleteButton);
+
+  // append to the list
+  todoList.appendChild(todoDiv);
 }
