@@ -55,3 +55,5 @@ function addTodo(e) {
   todoList.appendChild(todoDiv);
   todoInput.value = '';
 }
+
+// TODO: sanitize input
