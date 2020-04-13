@@ -9,7 +9,12 @@ const todoInput = document.querySelector('.todo-input'),
 /**
  * Event listeners
  */
+// on the + button
 todoButton.addEventListener('click', addTodo);
+
+// on the 'complete' and 'delete' buttons - 
+// functionality can be added based on where we're clicking
+todoList.addEventListener('click', deleteCheck);
 
 /**
  * Functions
@@ -54,6 +59,18 @@ function addTodo(e) {
   // append to the list and clear the input
   todoList.appendChild(todoDiv);
   todoInput.value = '';
+}
+
+function deleteCheck(e) {
+  const item = e.target; // the target is the button itself
+
+  // delete todo
+  if (item.classList[0] === 'trash-btn') {
+    // now we're looking at the whole item (the text and both buttons)
+    const todo = item.parentElement;
+
+    todo.remove();
+  }
 }
 
 // TODO: sanitize input
