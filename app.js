@@ -62,14 +62,17 @@ function addTodo(e) {
 }
 
 function deleteCheck(e) {
-  const item = e.target; // the target is the button itself
+  const item = e.target, // the target is the button itself
+        todo = item.parentElement;
 
   // delete todo
   if (item.classList[0] === 'trash-btn') {
-    // now we're looking at the whole item (the text and both buttons)
-    const todo = item.parentElement;
-
     todo.remove();
+  }
+
+  // mark complete
+  if (item.classList[0] === 'complete-btn') {
+    todo.classList.toggle('completed');
   }
 }
 
