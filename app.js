@@ -67,11 +67,16 @@ function deleteCheck(e) {
 
   // delete todo
   if (item.classList[0] === 'trash-btn') {
-    todo.remove();
+    // trigger the falling animation
+    todo.classList.add('fall');
+    todo.addEventListener('transitionend', () => {
+      todo.remove();
+    });
   }
 
   // mark complete
   if (item.classList[0] === 'complete-btn') {
+    // toggle the crossed-out look
     todo.classList.toggle('completed');
   }
 }
