@@ -27,6 +27,10 @@ function addTodo(e) {
   // don't refresh upon submit
   e.preventDefault(); 
 
+  if (!todoInput.value) {
+    return alert('Forgetting something?');
+  }
+
   /* this goes inside the ul
   <div class="todo">
     <li></li>
@@ -111,5 +115,3 @@ function filterTodo(e) {
     }
   });
 }
-
-// TODO: sanitize input
