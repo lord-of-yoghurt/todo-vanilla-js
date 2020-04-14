@@ -4,7 +4,8 @@
 const todoInput = document.querySelector('.todo-input'),
       todoButton = document.querySelector('.todo-button'),
       // this is where all items are aggregated
-      todoList = document.querySelector('.todo-list');
+      todoList = document.querySelector('.todo-list'),
+      filterOption = document.querySelector('.filter-todo');
 
 /**
  * Event listeners
@@ -15,6 +16,9 @@ todoButton.addEventListener('click', addTodo);
 // on the 'complete' and 'delete' buttons - 
 // functionality can be added based on where we're clicking
 todoList.addEventListener('click', deleteCheck);
+
+// on the filter dropdown
+filterOption.addEventListener('input', filterTodo);
 
 /**
  * Functions
@@ -79,6 +83,33 @@ function deleteCheck(e) {
     // toggle the crossed-out look
     todo.classList.toggle('completed');
   }
+}
+
+function filterTodo(e) {
+  const todos = todoList.childNodes;
+
+  // filter based on HTML "value" for each option
+  todos.forEach(todo => {
+    switch (e.target.value) {
+      case 'all':
+        todo.style.display = 'flex';
+        break;
+      case 'complete': // make sure we're only showing complete
+        if (todo.classList.contains('completed')) {
+          todo.style.display = 'flex';
+        } else { // others will be hidden
+          todo.style.display = 'none';
+        }
+        break;
+      case 'incomplete': // only showing incomplete
+        if (!todo.classList.contains('completed')) {
+          todo.style.display = 'flex';
+        } else {
+          todo.style.display = 'none';
+        }
+        break;
+    }
+  });
 }
 
 // TODO: sanitize input
