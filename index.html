@@ -20,6 +20,14 @@
     <button class="todo-button" type="submit">
       <i class="fas fa-plus-square"></i>
     </button>
+    <!-- we need this div in order to actually style the select -->
+    <div class="select">
+      <select name="todos" class="filter-todo">
+        <option value="all">All</option>
+        <option value="complete">Complete</option>
+        <option value="incomplete">Incomplete</option>
+      </select>
+    </div>
   </form>
   <div class="todo-container">
     <ul class="todo-list"></ul>
