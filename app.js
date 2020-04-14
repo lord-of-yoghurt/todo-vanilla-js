@@ -10,6 +10,11 @@ const todoInput = document.querySelector('.todo-input'),
 /**
  * Event listeners
  */
+
+// when everything is loaded, display todos
+// from local storage if there are any
+document.addEventListener('DOMContentLoaded', getTodos);
+
 // on the + button
 todoButton.addEventListener('click', addTodo);
 
@@ -120,20 +125,57 @@ function filterTodo(e) {
 }
 
 function saveLocalTodos(todo) {
-  let todos;
-
-  // check if there's anything already so we don't overwrite it
-  if (!localStorage.getItem('todos')) {
-    todos = [];
-  } else {
-    // if something's already there, parse it back as JSON
-    // and get an array in return
-    todos = JSON.parse(localStorage.getItem('todos'));
-  }
+  let todos = checkStorage();
 
   // then and only then, add the new todo
   todos.push(todo);
 
   // persist the whole thing
   localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function getTodos() {
+  let todos = checkStorage();
+
+  if (todos.length > 0) {
+    todos.forEach(todo => {
+      const todoDiv = document.createElement('div');
+      todoDiv.classList.add('todo');
+
+      // create the li
+      const newTodo = document.createElement('li');
+      newTodo.innerText = todo;
+      newTodo.classList.add('todo-item');
+
+      // item goes inside the div
+      todoDiv.appendChild(newTodo);
+
+      // add the 'complete' button
+      const completeButton = document.createElement('button');
+      // button will have an icon from font-awesome
+      completeButton.innerHTML = '<i class="fas fa-check"></i>';
+      completeButton.classList.add('complete-btn');
+      todoDiv.appendChild(completeButton);
+
+      // add the 'delete' button
+      const deleteButton = document.createElement('button');
+      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.classList.add('trash-btn');
+      todoDiv.appendChild(deleteButton);
+
+      // append to the list and clear the input
+      todoList.appendChild(todoDiv);
+    });
+  }
+}
+
+function checkStorage() {
+  // check if there's anything already so we don't overwrite it
+  if (!localStorage.getItem('todos')) {
+    return [];
+  } else {
+    // if something's already there, parse it back as JSON
+    // and get an array in return
+    return JSON.parse(localStorage.getItem('todos'));
+  }
 }
