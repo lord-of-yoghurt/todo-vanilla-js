@@ -58,6 +58,9 @@ function addTodo(e) {
   completeButton.classList.add('complete-btn');
   todoDiv.appendChild(completeButton);
 
+  // save the new todo in local storage
+  saveLocalTodos(todoInput.value);
+
   // add the 'delete' button
   const deleteButton = document.createElement('button');
   deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
@@ -114,4 +117,23 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+function saveLocalTodos(todo) {
+  let todos;
+
+  // check if there's anything already so we don't overwrite it
+  if (!localStorage.getItem('todos')) {
+    todos = [];
+  } else {
+    // if something's already there, parse it back as JSON
+    // and get an array in return
+    todos = JSON.parse(localStorage.getItem('todos'));
+  }
+
+  // then and only then, add the new todo
+  todos.push(todo);
+
+  // persist the whole thing
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
