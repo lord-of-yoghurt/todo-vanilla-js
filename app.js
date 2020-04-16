@@ -85,6 +85,7 @@ function deleteCheck(e) {
   if (item.classList[0] === 'trash-btn') {
     // trigger the falling animation
     todo.classList.add('fall');
+    removeTodos(todo);
     todo.addEventListener('transitionend', () => {
       todo.remove();
     });
@@ -167,6 +168,19 @@ function getTodos() {
       todoList.appendChild(todoDiv);
     });
   }
+}
+
+function removeTodos(todo) {
+  let todos = checkStorage();
+
+  // get the text content of the todo
+  const todoText = todo.children[0].innerText;
+
+  // remove it from the todos array using the index
+  todos.splice(todos.indexOf(todoText), 1);
+
+  // refresh the todos array in local storage
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 function checkStorage() {
